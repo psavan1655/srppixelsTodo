@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API } from "../database";
 const axios = require("axios");
 
 function CreateTodo() {
@@ -16,10 +17,10 @@ function CreateTodo() {
     event.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost:8000/api/todo",
+      url: `${API}/todo`,
       data: todoData,
     })
-      .then(function (response) {
+      .then(function () {
         settodoData({
           title: "",
           description: "",

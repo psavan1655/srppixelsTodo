@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API } from "../database";
 
 function TodoDisplay({ setreload = (f) => f, reload = undefined }) {
   const [tasks, settasks] = useState([]);
@@ -18,7 +19,7 @@ function TodoDisplay({ setreload = (f) => f, reload = undefined }) {
     settasks(newArr);
     await axios({
       method: "put",
-      url: `http://localhost:8000/api/todo/${data._id}`,
+      url: `${API}/todo/${data._id}`,
       data: {
         isCompleted: !tasks[todoUpdateId].isCompleted,
       },
@@ -33,7 +34,7 @@ function TodoDisplay({ setreload = (f) => f, reload = undefined }) {
     e.preventDefault();
     await axios({
       method: "delete",
-      url: `http://localhost:8000/api/todo/${id}`,
+      url: `${API}/todo/${id}`,
     })
       .then(function (data) {
         window.location.reload(false);
@@ -46,7 +47,7 @@ function TodoDisplay({ setreload = (f) => f, reload = undefined }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:8000/api/getalltodo",
+      url: `${API}/getalltodo`,
     })
       .then(async function (data) {
         await settasks(data.data);
